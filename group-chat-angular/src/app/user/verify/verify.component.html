@@ -1,0 +1,23 @@
+<div class="container">
+  <div *ngIf="success==1">
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <h2 class="text-success">Email Verified!</h2>
+        <h5 class="text-danger">Thanks for signing up .Please
+          <a [routerLink]="['/login']">Login</a>
+        </h5>
+      </div>
+    </div>
+  </div> <!--success end-->
+  <!---failure start-->
+  <div *ngIf="failure==1">
+        <div class="row mt-4">
+          <div class="col-12 text-center">
+            <h2 class="text-success">Email Not Verified!</h2>
+            <h5 class="text-danger">Oops!Some Error Occured!.Please again
+              <a [routerLink]="['/sign-up']">SignUp</a>
+            </h5>
+          </div>
+        </div>
+  </div><!-- failure end -->
+</div>
