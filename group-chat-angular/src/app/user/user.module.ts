@@ -8,7 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { VerifyComponent } from './verify/verify.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-
+// Import ParticlesModule
+import { ParticlesModule } from 'angular-particle';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    ParticlesModule,
     RouterModule.forChild([
       { path: 'sign-up', component: SignupComponent },
       { path: 'verify/:hash' , component: VerifyComponent},

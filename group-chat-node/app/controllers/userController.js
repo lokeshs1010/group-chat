@@ -422,8 +422,20 @@ let forgotPassword=(req,res)=>{
     from: 'hrishi0703@gmail.com', // sender address
     to: req.body.email, // list of receivers
     subject: 'Reset your password', // Subject line
-    html: "<p>Hi!,<br>Please <a href='http://localhost:4200/reset/"+emailEncrypt+"'>Click here</a> to change your password!</p>"
-   
+   // html: "<p>Hi there,,<br>Please <a href='http://localhost:4200/reset/"+emailEncrypt+"'>Click here</a> to change your password!</p>"
+    html:`<p>Hi there,<p><br>
+    Someone asked for a password reset for the email address ${ req.body.email }. Follow the link below:<br><br>
+    <a href='http://localhost:4200/reset/${emailEncrypt}'>http://localhost:4200/reset/${emailEncrypt}</a><br><br>
+
+    If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.<br><br>
+    
+    If you've received this mail in error, it's likely that another user entered your email address by mistake while trying
+    to reset a password. If you didn't initiate the request, you don't need to take any further action and can safely
+    disregard this email.<br><br>
+    
+    Thanks,<br>
+    
+    The Group Chat Team`
    };
    console.log(mailOptions)
    transporter.sendMail(mailOptions, function (err, info) {

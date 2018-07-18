@@ -166,8 +166,12 @@ let shareLink=(req,res)=>{
   from: 'hrishi0703@gmail.com', // sender address
   to: req.body.email, // list of receivers
   subject: 'Chat Chat', // Subject line
-  html: "<p>Hi!,<br>Let\'s do a Group Chat.<a href='http://localhost:4200/group/"+req.body.roomId+"/"+req.body.roomName+"'>Click here</a> to Join!</p>"
- 
+  //html: "<p>Hi!,<br>Let\'s do a Group Chat.<a href='http://localhost:4200/group/"+req.body.roomId+"/"+req.body.roomName+"'>Click here</a> to Join!</p>"
+  html:`Hi ${req.body.email}<br>
+  someone has invited you to join a group chat.<br>
+  <a href='http://localhost:4200/group/${req.body.roomId}/${req.body.roomName}'>Click here</a> to Join!<br>
+  
+  Thanks`
  };
  console.log(mailOptions)
  transporter.sendMail(mailOptions, (err, info) => {

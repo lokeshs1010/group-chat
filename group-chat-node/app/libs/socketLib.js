@@ -4,6 +4,7 @@
 const socketio = require('socket.io');
 const mongoose = require('mongoose');
 const shortid = require('shortid');
+const _ = require('lodash');
 
 // To include events module
 const events = require('events');
@@ -24,6 +25,7 @@ const ChatModel = mongoose.model('Chat');
 let setServer = (server) => {
 
     let allOnlineUsers = []
+    let onlineUsers = []
 
     let io = socketio.listen(server);
 
@@ -52,10 +54,11 @@ let setServer = (server) => {
                     let fullName = `${currentUser.firstName} ${currentUser.lastName}`
                    
                     let userObj = {userId:currentUser.userId,fullName:fullName}
-                    allOnlineUsers.push(userObj)
-                    allOnlineUsers=allOnlineUsers.filter((val,index)=>{
-                        return allOnlineUsers.indexOf(val)==index;
-                    });
+                    onlineUsers.push(userObj)
+                    // allOnlineUsers=allOnlineUsers.filter((val,index)=>{
+                    //     return allOnlineUsers.indexOf(val)===index;
+                    // });
+                    allOnlineUsers = _.uniqWith(onlineUsers, _.isEqual);
                    
                     console.log(allOnlineUsers);
                      // setting room name
@@ -177,9 +180,16 @@ eventEmitter.on('WelcomeEmail', (data) => {
         from: 'hrishi0703@gmail.com', // sender address
         to: data.email, // list of receivers
         subject: 'Confirm your Email account',
-        text: `Hi! ${data.name},
-        Please Click on the link to verify your email.`,
-        html: '<a href="http://localhost:4200/verify/'+data.hash+'">http://localhost:4200/' +data.hash+ '</a>'
+        // text: `Hi! ${data.name},
+        // Please Click on the link to verify your email.`,
+       // html: '<a href="http://localhost:4200/verify/'+data.hash+'">http://localhost:4200/' +data.hash+ '</a>'
+        html: `Hi! ${data.name},<br>
+        Please Click on the link to verify your email.<br>
+        <a href="http://localhost:4200/verify/${data.hash}">http://localhost:4200/${data.hash}</a><br>
+        If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.<br><br>
+        <br>
+        Thanks for joining<br>
+        Happy chatting`
     };
     console.log(mailOptions)
     transporter.sendMail(mailOptions, (err, info) => {
